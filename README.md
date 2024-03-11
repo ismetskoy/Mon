@@ -5,7 +5,7 @@
 
 Mon 
 <tr>----- Mon</tr>
------ _internal
+<tr>----- _internal</tr>
 --------------- templates
 --------------- static
 --------------------- js
