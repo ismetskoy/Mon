@@ -1,0 +1,151 @@
+		body {
+        width: 70%; /* Уменьшаем ширину содержимого 
+        margin: 0 auto; /* Центрируем содержимое страницы */
+		background: linear-gradient(to left, #ffffff, #696868); 
+		}
+        
+        body.loading {
+            overflow: hidden;
+        }
+        body.loading .loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(199, 199, 199, 1.0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .blinkText {
+            color: white;
+            font-size: 35px;
+            animation: blink 1s step-start infinite;
+        }            
+
+        #downloadingMessage {
+            display: none; /* initially hidden */
+            color: #a826d4;
+            font-size: 25px; /* Ensure consistent font size with blinking text */
+        }
+
+        #downloadExcelButton {
+            background-color: #a826d4; /* Зеленый цвет фона */
+            color: white; /* Белый цвет текста */
+            padding: 10px 20px; /* Отступы вокруг текста */
+            border: none; /* Удаляем границы */
+            border-radius: 5px; /* Скругленные углы */
+            text-align: center; /* Выравнивание текста по центру */
+            text-decoration: none; /* Убираем подчеркивание */
+            display: inline-block; /* Используем блочный элемент */
+            font-size: 16px; /* Размер текста */
+            cursor: pointer; /* Изменяем курсор при наведении */
+        }
+    
+        #downloadExcelButton:hover {
+            background-color: #45a049; /* Цвет фона при наведении */
+        }
+		
+		#dataTable {
+            border: 1px solid black; /* Граница таблицы */
+            border-collapse: collapse; /* Схлопывание границ */
+            width: 100%; /* Ширина таблицы */
+        }
+    
+        #dataTable th, #dataTable td {
+            border: 1px solid black; /* Граница ячеек */
+            padding: 8px; /* Отступы внутри ячеек */
+            text-align: left; /* Выравнивание текста слева */
+        }
+
+        th {
+            background-color: #c2c2c2;
+        }
+
+        #dataTable {
+		border: 1px solid #ddd; /* Граница таблицы */
+		border-collapse: collapse; /* Схлопывание границ */
+		width: 100%; /* Ширина таблицы */
+		}
+
+		#dataTable th, #dataTable td {
+			border: 1px solid #ddd; /* Граница ячеек */
+			padding: 12px; /* Увеличенные отступы внутри ячеек */
+			text-align: left; /* Выравнивание текста слева */
+		}
+
+		#dataTable th {
+			background-color: #f2f2f2; /* Цвет фона для заголовков */
+		}
+
+		#dataTable tr:nth-child(even) {
+			background-color: #f9f9f9; /* Цвет фона для четных строк */
+		}
+
+		#dataTable tr:hover {
+			background-color: #f1f1f1; /* Цвет фона при наведении на строку */
+		}
+
+		#dataTable td {
+			color: #333; /* Цвет текста */
+		}
+
+		#dataTable th:first-child,
+		#dataTable td:first-child {
+			border-left: none; /* Удаление левой границы для первой колонки */
+		}
+
+		#dataTable th:last-child,
+		#dataTable td:last-child {
+			border-right: none; /* Удаление правой границы для последней колонки */
+		}
+
+        h1 {
+            align-items: center;
+            font-family: cursive;
+            font-size: 2.5em; /* Размер шрифта */
+            text-align: center; /* Выравнивание текста по центру */
+            text-transform: uppercase; /* Преобразование текста в верхний регистр */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Тень текста */
+            margin-top: 20px; /* Внешний отступ сверху */
+            animation: blink 60s infinite; /* Анимация мерцания цвета в течение 2 секунд бесконечно */
+        }
+        
+        #mail {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        p1 {
+            font-size: 20px;
+            padding: 5px;
+            
+        }
+
+        .text-container {
+            font-size: 10px;
+            flex-direction: column; /* Устанавливаем вертикальное направление для элементов */
+            text-align: right;
+            font-family: cursive;
+        }
+        
+        .text-container p {
+        }
+
+        h3 {
+            font-family: cursive;
+            font-size: 0.6em; /* Размер шрифта */
+            text-align: center; /* Выравнивание текста по центру */
+            text-transform: uppercase; /* Преобразование текста в верхний регистр */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Тень текста */
+            animation: blink 60s infinite; /* Анимация мерцания цвета в течение 2 секунд бесконечно */
+        }
+        
+        @keyframes blink {
+            0% { color: #000; } /* Начальный цвет текста */
+            50% { color: #a826d4; } /* Конечный цвет текста */
+            100% { color: #000; } /* Возврат к начальному цвету текста */
+        }
