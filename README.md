@@ -4,7 +4,7 @@
 Структура "Проекта": 
 
 Mon 
-<tr>----- Mon</tr>
+<b>----- Mon</b>
 <tr>----- _internal</tr>
 --------------- templates
 --------------- static
