@@ -13,4 +13,5 @@ Mon
 <p>--------------------- images</p>
 <p>--------------- downloads</p>
 
-![1 (3)](https://github.com/ismetskoy/Mon/assets/18416594/491db325-b2ee-4eb1-bbae-81de99e2dab6)
+![1](https://github.com/ismetskoy/Mon/assets/18416594/c8336d59-0fe5-486b-86d2-14e576ac49ea)
+![2](https://github.com/ismetskoy/Mon/assets/18416594/60e68d5f-0d55-4281-abdb-3be755fe7dc5)
