@@ -1,55 +1,76 @@
-$(document).ready(function() {
-    function setLoading(isLoading) {
-        if (isLoading) {
-			$('body').addClass('loading').append('<div class="loadingOverlay"><div class="blinkText">Идёт Загрузка <span id="seconds"></span><br><span style="text-align: center; font-size: 10px; padding: 10px 15px; display: block; margin: 0 auto;">обычно не больше 1 минуты</span></div></div>');
-            let seconds = 0;
-            let secondsInterval = setInterval(function() {
-                seconds++;
-                document.getElementById('seconds').innerText = ' - ' + seconds;
-            }, 1000);
-        } else {
-            $('body').removeClass('loading');
-            $('.loadingOverlay').remove();
-            clearInterval(secondsInterval); // Остановка таймера при завершении загрузки
-        }
+var interval; 
+
+function showTableLoading(isLoading) {
+    var dataTable = $("#dataTable");
+    var loadingSpinner = $("#loadingSpinner");
+    var reloadMessage = $("#reloadMessage"); 
+
+    if (isLoading) {
+        dataTable.hide(); 
+        loadingSpinner.show(); 
+        reloadMessage.hide(); 
+    } else {
+        loadingSpinner.hide(); 
+        dataTable.show(); 
     }
+}
 
-            function loadData() {
-                setLoading(true);
+function updateTimer() {
+    var start = Date.now();
+    interval = setInterval(function() {
+        var elapsed = Math.floor((Date.now() - start) / 1000);
+        $(".timer").html(elapsed + "s <br>Идёт загрузка ... </br>");
 
-                $.getJSON('/get-data', function(response) {
-                    setLoading(false);
-                    $('#downloadExcelButton').show(); // Show the download button after loading
+        if(elapsed >= 120) { 
+            clearInterval(interval); 
+            $("#reloadMessage").show(); 
+        }
+    }, 1000);
+}
 
-                    var total = 0;
-                    if (response.data && response.data.length > 0) {
-                        var tbody = $("#dataTable tbody");
-                        tbody.empty(); // Clear current table data
-                        response.data.forEach(function(item) {
-                            var count = parseInt(item.count_app_id, 10);
-                            total += isNaN(count) ? 0 : count;
-                            var row = "<tr>" + 
-                                        "<td>" + item.code + "</td>" + 
-                                        "<td>" + (isNaN(count) ? '' : count) + "</td>" +
-                                    "</tr>";
-                            tbody.append(row);
-                        });
+function loadData() {
+    showTableLoading(true);
+    updateTimer();
 
-                        // Adding total row
-                        tbody.append("<tr style='font-weight:bold'><td>Общий итог</td><td>" + total + "</td></tr>");
-                    }
+    $.getJSON('/get-data')
+        .done(function(response) {
+            clearInterval(interval);
+            showTableLoading(false);
+            $('#reloadMessage').hide();
+            $('#downloadExcelButton').show();
+
+            var total = 0;
+            var tbody = $("#dataTable tbody");
+            tbody.empty();
+
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(function(item) {
+                    var count = parseInt(item.count_app_id, 10);
+                    total += isNaN(count) ? 0 : count;
+                    var row = "<tr><td>" + item.code + "</td><td>" + (isNaN(count) ? '' : count) + "</td></tr>";
+                    tbody.append(row);
                 });
+
+                tbody.append("<tr style='font-weight:bold'><td>Общий итог</td><td>" + total + "</td></tr>"); 
             }
-
-            loadData(); // Load data on page open
-
-            $(document).on('click', '#downloadExcelButton', function() { // Ensuring binding works even after manipulating the DOM
-                $(this).hide(); // Hide download button
-                $('#downloadingMessage').show().css('animation', 'blink 1s step-start infinite'); // Show downloading message and ensure animation
-
-                // Stop blinking and hide after 60 seconds
-                setTimeout(function(){
-                    $('#downloadingMessage').css('animation', 'none').hide();
-                }, 60000);
-            });
+        })
+        .fail(function(error) {
+            console.error("Error loading data: ", error);
+            clearInterval(interval);
+            showTableLoading(false);
         });
+}
+
+$(document).ready(function() {
+    loadData();
+
+    $(document).on('click', '#downloadExcelButton', function() {
+        $(this).hide();
+        $('#downloadingMessage').show().css('animation', 'blink 1s step-start infinite');
+
+        var stopBlinking = function() {
+            $('#downloadingMessage').css('animation', 'none').hide();
+        };
+        setTimeout(stopBlinking, 60000);
+    });
+});

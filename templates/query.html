@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <title>Мониторинг НКК 🌶️</title>
-
-    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/time.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    
-
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='css/main.css') }}">
-    
 
-    <!--<link rel="stylesheet" type="text/css" href="main.css">-->
-    
+    <meta charset="UTF-8">
+
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script> 
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/time.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/error.js') }}"></script>
+
+    <title>Мониторинг НКК</title>
 </head>
 <body>
     <div><h1>Мониторинг НКК 🌶️</h1></div>
-    <div class="text-container">1.0 ver. 💪<a href="https://dit.rencredit.ru/confluence/pages/viewpage.action?pageId=348389419"><p>Confluence</p></a></div>
-        <h2>Эта страница будет обновляться каждые: <span id="refreshTime"></span>.</h2>
+    <div class="text-container">1.1 ver. 💪<a href="https://dit.rencredit.ru/confluence/pages/viewpage.action?pageId=348389419"><p>Confluence</p></a></div>
+        <h2>Обновление таблицы: <span id="refreshTime"></span>.</h2>
         <div>
-            <button onclick="setRefreshTime(300)">5 минут</button>
-            <button onclick="setRefreshTime(600)">10 минут</button>
-            <button onclick="setRefreshTime(900)">15 минут</button>
+            <button id="timelButton5" onclick="setRefreshTime(300)">5 минут</button>
+            <button id="timelButton10" onclick="setRefreshTime(600)">10 минут</button>
+            <button id="timelButton15" onclick="setRefreshTime(900)">15 минут</button>
         </div>
-        <p >Последнее обновление страницы: <span id="lastRefreshTime"></span></p>
+        <p >Последнее обновление таблицы: <span id="lastRefreshTime"></span></p>
         
-        <a href="/download-excel"><button id="downloadExcelButton">Скачать Excel</button></a>
+        <a href="/download-excel"><button id="downloadExcelButton">Скачать выгрузку</button></a>
         
-    <div id="downloadingMessage" class="blinkText">Идёт скачивание Excel...</div>
-    <div id="timeoutMessage" style="display: none;">Для повторного скачивания обновите страница ⭕</div>
+    <div id="downloadingMessage" class="blinkText">Идёт скачивание выгрузки ...</div>
 
-    <table id="dataTable" style="width: 100%; margin-top: 20px;">
+    <div id="loadingSpinner" style="display: flex; justify-content: center; align-items: center; height: 25vh;">
+        <div class="spinner"></div>
+        <div class="timer">0s</div>
+    </div>
+
+    <div id="reloadMessage" style="display: none; text-align: center;">
+        Пожайлуста обновите страницу. Произошла ошибка сервера.
+    </div>
+    
+    <table id="dataTable" style="width: 100%; margin-top: 20px; display: none;">
         <thead>
             <tr>
-                <th>Код</th>
-                <th>Количество заявок</th>
+                <th>Код:</th>
+                <th>Количество заявок по GP:</th>
             </tr>
         </thead>
         <tbody>
-            <!-- таблица -->
+            <!-- тут таблица -->
         </tbody>
     </table>
-    <p id="mail">Все вопросы и пожелания на:<h3><p1>💌</p1>ismetskoy@rencredit.ru</h3></p>
+    </div>
+    <p id="mail" style="text-align: center;">
+        Все вопросы и пожелания на:
+        <br>
+        💌 ismetskoy@rencredit.ru
+    </p>
 </body>
 </html>
